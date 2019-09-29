@@ -1,0 +1,35 @@
+#!/bin/bash
+set -e
+
+pkgver="1.1"
+source="https://github.com/linuxwacom/libwacom.git"
+sources_tag="libwacom-${pkgver}"
+patches="https://github.com/qzed/libwacom-surface.git"
+patches_tag="v${pkgver}"
+
+basepath="$( cd "$(dirname "$0")" ; pwd -P )"
+
+# prepare source
+rm -rf "source" "patches"
+
+cd "${basepath}"
+git clone "${source}" "source"
+cd "${basepath}/source"
+git checkout ${sources_tag}
+
+cd "${basepath}"
+git clone "${patches}" "patches"
+cd "${basepath}/patches"
+git checkout ${patches_tag}
+
+cd "${basepath}"
+cp -r "debian" "source"
+
+# apply patches
+cd "${basepath}/source"
+git am "../patches/"*.patch
+
+# build package
+cd "${basepath}/source"
+dpkg-buildpackage -b
+dpkg-sig --sign builder ../*.deb
