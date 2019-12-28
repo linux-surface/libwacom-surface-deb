@@ -4,7 +4,7 @@ set -e
 pkgver="1.2"
 source="https://github.com/linuxwacom/libwacom.git"
 sources_tag="libwacom-${pkgver}"
-patches="https://github.com/qzed/libwacom-surface.git"
+patches="https://github.com/linux-surface/libwacom-surface-patches.git"
 patches_tag="v${pkgver}"
 
 basepath="$( cd "$(dirname "$0")" ; pwd -P )"
