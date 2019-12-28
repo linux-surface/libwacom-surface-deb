@@ -32,4 +32,3 @@ git am "../patches/"*.patch
 # build package
 cd "${basepath}/source"
 dpkg-buildpackage -b
-dpkg-sig --sign builder ../*.deb

@@ -1,0 +1,52 @@
+sudo: required
+dist: xenial
+language: c
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    packages:
+      - debhelper
+      - dh-autoreconf
+      - fakeroot
+      - libglib2.0-dev
+      - libgtk2.0-dev
+      - libgudev-1.0-dev
+      - librsvg2-dev
+      - libxml2-dev
+      - git
+
+jobs:
+  include:
+    - stage: release
+      if: tag IS present
+      script:
+        - rm -f "./*.deb"
+        - ./makedeb
+      deploy:
+        provider: releases
+
+        file_glob: true
+        file:
+          - "./*.deb"
+
+        api_key:
+          secure: IaK51V87uZ4ZUtjU6wvHJ8dz7Uqekq/RNa/GP5WfcK4L3RYRq//oTVFxHhFJ0DoEidlHcs95PkO0x2h+q78EJJNor3mN76EypNgEW9S7LExnQNoLfZHZxmGRSGfq/JdAN19XbRFg6a6TOXIuLR33Y0GfoVvFta5MnjSDkb7eyM2d6+Xg33V2tA2K6hBi/lTe/oZ7WiiF+mJviMinqOX0G/aVRWffbTCuy+Nqwwe8tteVPuOuG7ScXYODoE9nXyNGKQX+qR8pmfiUS3bQxHZ8t1pVpaDiCpM8r20u0q+a3MvL3Fn3Cnn7Z+6D4UEDMhwhvBtK78S9WAfJIJS6XZ7LPFNWRL01M/+rW2YQQYk1xZ+ehlZ29hDoX1bsNM+2KFGjQkr/7nLFz6FoYIYsTEqyY0Y8TzyKsSBDwow8dKPbpN7Ydlg7DFqrRsZSAm3F10gr2utSVHUzRCZdu7eUMj8bgRlp7kxB3fdWKPlYNmp/YFk8Da+O+oBKRoqgK8eeiMKTQP6WiKa5VVwbf0iXB1pGSPyGjzUma3BWs5uE4Jis4dNMKTW0G70LKMByW+bUGe7av+Bdp69Hy5RaLSTnga0sgftSB6Vkykpy/nFcMVTh13oKuGjWHO3A0iR1W8/qrJ4W7cqSCXW69Klz/9eVT8t8EC0IEDF//uvo/+655jzU0Wk=
+
+        skip_cleanup: true
+        draft: true
+        on:
+          tags: true
+
+branches:
+  only:
+    - master
+    - ci
+    - "/^v\\d.*/"
+    - "/^testing-ci\\.*/"
+
+notifications:
+  email:
+    on_success: never
