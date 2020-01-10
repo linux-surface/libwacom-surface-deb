@@ -5,7 +5,7 @@ pkgver="1.2"
 source="https://github.com/linuxwacom/libwacom.git"
 sources_tag="libwacom-${pkgver}"
 patches="https://github.com/linux-surface/libwacom-surface-patches.git"
-patches_tag="v${pkgver}"
+patches_tag="v${pkgver}-2"
 
 basepath="$( cd "$(dirname "$0")" ; pwd -P )"
 
@@ -31,4 +31,4 @@ git am "../patches/"*.patch
 
 # build package
 cd "${basepath}/source"
-dpkg-buildpackage -b
+dpkg-buildpackage -b -us -uc

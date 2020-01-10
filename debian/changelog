@@ -1,8 +1,8 @@
-libwacom-surface (1.2-1) UNRELEASED; urgency=medium
+libwacom-surface (1.2-2) unstable; urgency=medium
 
-  * Update to libwacom-1.2
+  * Add data file for Surface Go
 
- -- Maximilian Luz <luzmn@xws.localdomain>  Fri, 27 Dec 2019 21:09:49 +0100
+ -- Maximilian Luz <luzmn@xws.localdomain>  Fri, 10 Jan 2020 03:53:55 +0100
 
 libwacom-surface (1.1-1) unstable; urgency=medium
 
